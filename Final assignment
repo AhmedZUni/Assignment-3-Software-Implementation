@@ -38,3 +38,56 @@ class Supplier:
         self.name = name
         self.address = address
         self.contact_details = contact_details
+# GUI class
+class ManagementSystemGUI:
+    def __init__(self, root):
+        self.root = root
+        self.load_data()
+        self.root.title(' Management System')
+        self.employees = []  # Initialize employees as an empty list
+        self.events = []  # Initialize events as an empty list
+        self.clients = []  # Initialize clients as an empty list
+        self.suppliers = []  # Initialize suppliers as an empty list
+
+        # Create labels and buttons for each category
+        categories = [
+            ("Employee Management", [
+                ("Add Employee", self.add_employee),
+                ("Delete Employee", self.delete_employee),
+                ("Modify Employee", self.modify_employee),
+                ("Display Employee", self.display_employee)
+            ]),
+            ("Event Management", [
+                ("Add Event", self.add_event),
+                ("Delete Event", self.delete_event),
+                ("Modify Event", self.modify_event),
+                ("Display Event", self.display_event)
+            ]),
+            ("Client Management", [
+                ("Add Client", self.add_client),
+                ("Delete Client", self.delete_client),
+                ("Modify Client", self.modify_client),
+                ("Display Client", self.display_client)
+            ]),
+            ("Supplier Management", [
+                ("Add Supplier", self.add_supplier),
+                ("Delete Supplier", self.delete_supplier),
+                ("Modify Supplier", self.modify_supplier),
+                ("Display Supplier", self.display_supplier)
+            ])
+        ]
+
+        # Calculate number of rows needed
+        max_options = max(len(options) for _, options in categories)
+        num_cols = len(categories)
+
+        # Create labels and buttons for each category
+        for col, (category, options) in enumerate(categories):
+            tk.Label(root, text=category).grid(row=0, column=col, padx=10, pady=5)
+            for row, (text, command) in enumerate(options, start=1):
+                button = tk.Button(root, text=text, command=command)
+                button.grid(row=row, column=col, padx=10, pady=5, sticky="ew")
+
+        # Adjust column weights to make them expandable
+        for col in range(num_cols):
+            root.grid_columnconfigure(col, weight=1)
