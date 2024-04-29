@@ -91,3 +91,45 @@ class ManagementSystemGUI:
         # Adjust column weights to make them expandable
         for col in range(num_cols):
             root.grid_columnconfigure(col, weight=1)
+    def submit_employee(self):
+        name = self.name_entry.get()
+        employee_id = self.employee_id_entry.get()
+        department = self.department_entry.get()
+        job_title = self.job_title_entry.get()
+        basic_salary = float(self.basic_salary_entry.get())
+        manager_id = self.manager_id_entry.get()
+
+        # Create an Employee object
+        employee = Employee(name, employee_id, department, job_title, basic_salary, manager_id)
+
+        # Append the employee to the list
+        self.employees.append(employee)
+
+    def display_employee_details(self):
+        try:
+            employee_id = self.display_employee_id_entry.get()
+            # Search for the employee with the given ID
+            for employee in self.employees:
+                if employee.employee_id == employee_id:
+                    # Display the details of the employee
+                    messagebox.showinfo("Employee Details", f"Name: {employee.name}\nID: {employee.employee_id}\nDepartment: {employee.department}\nJob Title: {employee.job_title}\nBasic Salary: {employee.basic_salary}\nManager ID: {employee.manager_id}")
+                    return
+            # If employee with the given ID is not found
+            messagebox.showerror("Error", f"Employee with ID {employee_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def create_employee_management_gui(self):
+
+        # Display Employee Frame
+        self.display_employee_frame = tk.Frame(self.root)
+        self.display_employee_frame.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+
+        self.display_employee_id_label = tk.Label(self.display_employee_frame, text="Enter Employee ID:")
+        self.display_employee_id_label.grid(row=0, column=0, padx=10, pady=10)
+        self.display_employee_id_entry = tk.Entry(self.display_employee_frame)
+        self.display_employee_id_entry.grid(row=0, column=1, padx=10, pady=10)
+
+        self.display_employee_button = tk.Button(self.display_employee_frame, text="Display Employee",
+                                                 command=self.display_employee_details)
+        self.display_employee_button.grid(row=0, column=2, padx=10, pady=10)
