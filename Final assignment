@@ -1,1 +1,40 @@
 #ICS220 - Assignment 3: Software Implementation - OO Project with GUI and Data storage
+import tkinter as tk
+from tkinter import messagebox
+import pickle
+
+# Define classes
+class Employee:
+    def __init__(self, name, employee_id, department, job_title, basic_salary, manager_id, date_of_birth=None, passport_details=None):
+        self.name = name
+        self.employee_id = employee_id
+        self.department = department
+        self.job_title = job_title
+        self.basic_salary = basic_salary
+        self.manager_id = manager_id
+        self.date_of_birth = date_of_birth
+        self.passport_details = passport_details
+
+class Event:
+    def __init__(self, event_id, event_type, theme, date, time):
+        self.event_id = event_id
+        self.event_type = event_type
+        self.theme = theme
+        self.date = date
+        self.time = time
+
+
+
+class Client:
+    def __init__(self, client_id, name, address, contact_details):
+        self.client_id = client_id
+        self.name = name
+        self.address = address
+        self.contact_details = contact_details
+
+class Supplier:
+    def __init__(self, supplier_id, name, address, contact_details):
+        self.supplier_id = supplier_id
+        self.name = name
+        self.address = address
+        self.contact_details = contact_details
