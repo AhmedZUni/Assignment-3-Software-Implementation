@@ -777,3 +777,217 @@ class ManagementSystemGUI:
 
         # Optionally, display a message box or update GUI to indicate successful addition of supplier
         messagebox.showinfo("Success", "Supplier added successfully.")
+
+    def display_supplier(self):
+        # Create a new window for displaying supplier details
+        self.display_supplier_window = tk.Toplevel(self.root)
+        self.display_supplier_window.title("Display Supplier")
+
+        # Label and Entry field for entering supplier ID
+        tk.Label(self.display_supplier_window, text="Enter Supplier ID:").grid(row=0, column=0, padx=10, pady=5)
+        self.display_supplier_id_entry = tk.Entry(self.display_supplier_window)
+        self.display_supplier_id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        # Button to trigger displaying supplier details
+        tk.Button(self.display_supplier_window, text="Display", command=self.display_supplier_details).grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+    def display_supplier_details(self):
+        try:
+            supplier_id = self.display_supplier_id_entry.get()
+            # Search for the supplier with the given ID
+            for supplier in self.suppliers:
+                if supplier.supplier_id == supplier_id:
+                    # Display the details of the supplier
+                    messagebox.showinfo("Supplier Details", f"Supplier ID: {supplier.supplier_id}\nName: {supplier.name}\nAddress: {supplier.address}\nContact Details: {supplier.contact_details}")
+                    return
+            # If supplier with the given ID is not found
+            messagebox.showerror("Error", f"Supplier with ID {supplier_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def delete_supplier(self):
+        try:
+            supplier_id = self.delete_supplier_id_entry.get()
+            # Search for the supplier with the given ID
+            for supplier in self.suppliers:
+                if supplier.supplier_id == supplier_id:
+                    # Confirm deletion with a message box
+                    confirm = messagebox.askyesno("Confirm Deletion", f"Do you want to delete supplier '{supplier.name}' with ID '{supplier_id}'?")
+                    if confirm:
+                        # Remove the supplier from the list
+                        self.suppliers.remove(supplier)
+                        # Save updated supplier data to file
+                        self.save_data_to_file(self.suppliers, "suppliers.bin")
+                        messagebox.showinfo("Success", f"Supplier with ID {supplier_id} deleted successfully.")
+                        return
+                    else:
+                        return
+            # If supplier with the given ID is not found
+            messagebox.showerror("Error", f"Supplier with ID {supplier_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def modify_supplier(self):
+        # Create a new window for modifying a supplier
+        self.modify_supplier_window = tk.Toplevel(self.root)
+        self.modify_supplier_window.title("Modify Supplier")
+
+        # Label and Entry field for entering supplier ID
+        tk.Label(self.modify_supplier_window, text="Enter Supplier ID:").grid(row=0, column=0, padx=10, pady=5)
+        self
+        pass
+
+    def display_supplier(self):
+        # Create a new window for displaying supplier details
+        self.display_supplier_window = tk.Toplevel(self.root)
+        self.display_supplier_window.title("Display Supplier")
+
+        # Label and Entry field for entering supplier ID
+        tk.Label(self.display_supplier_window, text="Enter Supplier ID:").grid(row=0, column=0, padx=10, pady=5)
+        self.display_supplier_id_entry = tk.Entry(self.display_supplier_window)
+        self.display_supplier_id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        # Button to trigger displaying supplier details
+        tk.Button(self.display_supplier_window, text="Display", command=self.display_supplier_details).grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+
+    def display_supplier_details(self):
+        try:
+            supplier_id = self.display_supplier_id_entry.get()
+            # Search for the supplier with the given ID
+            for supplier in self.suppliers:
+                if supplier.supplier_id == supplier_id:
+                    # Display the details of the supplier
+                    messagebox.showinfo("Supplier Details", f"Supplier ID: {supplier.supplier_id}\nName: {supplier.name}\nAddress: {supplier.address}\nContact Details: {supplier.contact_details}")
+                    return
+            # If supplier with the given ID is not found
+            messagebox.showerror("Error", f"Supplier with ID {supplier_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+        pass
+
+    def modify_supplier(self):
+        # Create a new window for modifying a supplier
+        self.modify_supplier_window = tk.Toplevel(self.root)
+        self.modify_supplier_window.title("Modify Supplier")
+
+        # Label and Entry field for entering supplier ID
+        tk.Label(self.modify_supplier_window, text="Enter Supplier ID:").grid(row=0, column=0, padx=10, pady=5)
+        self.modify_supplier_id_entry = tk.Entry(self.modify_supplier_window)
+        self.modify_supplier_id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        # Button to trigger modifying the supplier details
+        tk.Button(self.modify_supplier_window, text="Submit", command=self.load_supplier_details).grid(row=1, column=0,
+                                                                                                       columnspan=2,
+                                                                                                       padx=10, pady=10)
+
+    def load_supplier_details(self):
+        try:
+            supplier_id = self.modify_supplier_id_entry.get()
+            # Search for the supplier with the given ID
+            for supplier in self.suppliers:
+                if supplier.supplier_id == supplier_id:
+                    # Create a new window for entering new supplier details
+                    self.modify_supplier_details_window = tk.Toplevel(self.modify_supplier_window)
+                    self.modify_supplier_details_window.title("Modify Supplier Details")
+
+                    # Labels and Entry fields for new supplier details
+                    tk.Label(self.modify_supplier_details_window, text="Supplier ID:").grid(row=0, column=0, padx=10,
+                                                                                            pady=5)
+                    self.modify_supplier_id_entry = tk.Entry(self.modify_supplier_details_window, state="readonly")
+                    self.modify_supplier_id_entry.grid(row=0, column=1, padx=10, pady=5)
+                    self.modify_supplier_id_entry.insert(0, supplier.supplier_id)
+
+                    tk.Label(self.modify_supplier_details_window, text="Name:").grid(row=1, column=0, padx=10, pady=5)
+                    self.modify_name_entry = tk.Entry(self.modify_supplier_details_window)
+                    self.modify_name_entry.grid(row=1, column=1, padx=10, pady=5)
+                    self.modify_name_entry.insert(0, supplier.name)
+
+                    tk.Label(self.modify_supplier_details_window, text="Address:").grid(row=2, column=0, padx=10,
+                                                                                        pady=5)
+                    self.modify_address_entry = tk.Entry(self.modify_supplier_details_window)
+                    self.modify_address_entry.grid(row=2, column=1, padx=10, pady=5)
+                    self.modify_address_entry.insert(0, supplier.address)
+
+                    tk.Label(self.modify_supplier_details_window, text="Contact Details:").grid(row=3, column=0,
+                                                                                                padx=10, pady=5)
+                    self.modify_contact_details_entry = tk.Entry(self.modify_supplier_details_window)
+                    self.modify_contact_details_entry.grid(row=3, column=1, padx=10, pady=5)
+                    self.modify_contact_details_entry.insert(0, supplier.contact_details)
+
+                    # Submit button to modify the supplier
+                    tk.Button(self.modify_supplier_details_window, text="Submit",
+                              command=lambda: self.submit_modified_supplier(supplier)).grid(row=4, column=0,
+                                                                                            columnspan=2, padx=10,
+                                                                                            pady=10)
+
+                    return
+            # If supplier with the given ID is not found
+            messagebox.showerror("Error", f"Supplier with ID {supplier_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    def submit_modified_supplier(self, supplier):
+        try:
+            # Retrieve new supplier details from entry fields
+            supplier.name = self.modify_name_entry.get()
+            supplier.address = self.modify_address_entry.get()
+            supplier.contact_details = self.modify_contact_details_entry.get()
+
+            # Optionally, save the updated supplier data to file
+            self.save_data_to_file(self.suppliers, "suppliers.bin")
+
+            # Close the modify supplier details window
+            self.modify_supplier_details_window.destroy()
+
+            # Optionally, display a message box or update GUI to indicate successful modification of supplier
+            messagebox.showinfo("Success", "Supplier details modified successfully.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+        pass
+
+    def delete_supplier(self):
+        # Create a new window for deleting a supplier
+        self.delete_supplier_window = tk.Toplevel(self.root)
+        self.delete_supplier_window.title("Delete Supplier")
+
+        # Label and Entry field for entering supplier ID
+        tk.Label(self.delete_supplier_window, text="Enter Supplier ID:").grid(row=0, column=0, padx=10, pady=5)
+        self.delete_supplier_id_entry = tk.Entry(self.delete_supplier_window)
+        self.delete_supplier_id_entry.grid(row=0, column=1, padx=10, pady=5)
+
+        # Button to trigger deleting the supplier
+        tk.Button(self.delete_supplier_window, text="Delete", command=self.confirm_delete_supplier).grid(row=1,
+                                                                                                         column=0,
+                                                                                                         columnspan=2,
+                                                                                                         padx=10,
+                                                                                                         pady=10)
+
+    def confirm_delete_supplier(self):
+        try:
+            supplier_id = self.delete_supplier_id_entry.get()
+            # Search for the supplier with the given ID
+            for supplier in self.suppliers:
+                if supplier.supplier_id == supplier_id:
+                    # Confirm deletion with a message box
+                    confirm = messagebox.askyesno("Confirm Deletion",
+                                                  f"Do you want to delete supplier '{supplier.name}' with ID '{supplier_id}'?")
+                    if confirm:
+                        # Remove the supplier from the list
+                        self.suppliers.remove(supplier)
+                        # Optionally, save updated supplier data to file
+                        self.save_data_to_file(self.suppliers, "suppliers.bin")
+                        messagebox.showinfo("Success", f"Supplier with ID {supplier_id} deleted successfully.")
+                        return
+                    else:
+                        return
+            # If supplier with the given ID is not found
+            messagebox.showerror("Error", f"Supplier with ID {supplier_id} not found.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+    pass
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ManagementSystemGUI(root)
+    root.mainloop()
